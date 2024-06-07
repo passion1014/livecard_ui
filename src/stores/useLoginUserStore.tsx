@@ -16,6 +16,9 @@ export interface MbrUserStore {
   clearLoginUser: () => void;
 }
 
+/**
+ * 로그인 후의 사용자 정보 store
+ */
 const useLoginUserStore = create<MbrUserStore>((set) => ({
   user: null,
   setLoginUser: (user: MbrUser) => set({ user }),
