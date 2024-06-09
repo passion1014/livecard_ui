@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 export default function Component() {
   return (
     <div className="w-full bg-white py-6">
+
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex items-center justify-between mb-6">
           <Link

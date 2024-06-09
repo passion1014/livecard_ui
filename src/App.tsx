@@ -8,6 +8,7 @@ import MyPage from "./pages/MyPage";
 
 const App = () => {
   return (
+
     <Routes>
       {/* 인증없이 접근가능한 페이지 */}
       <Route path="/" element={<LandingPage />} />
