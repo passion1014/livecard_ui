@@ -11,10 +11,13 @@
 - Material Icon Theme: 소스트리의 파일 앞에 아이콘을 직관적으로 보여줌
 - Tailwind CSS IntelliSense: 테일윈드 인텔리센스
 
-# 백앤드 서버 Proxy설정
+## 백앤드 서버 Proxy설정
 
 - package.json의 다음 항목의 URL설정
   "proxy": "http://localhost:8080",
+
+## shadcn/ui 컴포넌트
+https://ui.shadcn.com/
 
 ## 명령어
 
