@@ -19,14 +19,7 @@ const App = () => {
       {/* <Route path="/signup" element={<SignupPage />} /> */}
       {/* 인증 필요 페이지 */}
       <Route element={<AuthoRoute />}>
-        <div className="flex h-screen w-full flex-col">
-          <Header />
-          <div className="flex flex-1">
-            <div className="hidden h-full bg-gray-100 p-4 lg:block">
-              <Route path="/mypage" element={<MyPage />} />
-            </div>
-          </div>
-        </div>
+        <Route path="/mypage" element={<MyPage />} />
       </Route>
     </Routes>
   )

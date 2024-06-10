@@ -9,21 +9,21 @@ const LoginPage = () => {
     <div className="flex items-center justify-center h-screen bg-gray-100 dark:bg-gray-900">
       <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-md dark:bg-gray-800">
         <div className="mb-6 text-center">
-          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Welcome Back</h1>
-          <p className="text-gray-600 dark:text-gray-400">Please sign in with one of the following options</p>
+          <h1 className="text-3xl font-bold text-gray-800 dark:text-white">로그인</h1>
+          <p className="text-gray-600 dark:text-gray-400">다음중에 하나로 로그인</p>
         </div>
         <div className="space-y-4">
           <Button variant="outline" className="w-full">
             <CoffeeIcon className="mr-2 h-4 w-4" />
-            Sign in with Kakao
+            카카오로 로그인
           </Button>
           <Button variant="outline" className="w-full">
             <NavigationIcon className="mr-2 h-4 w-4" />
-            Sign in with Naver
+            네이버로 로그인
           </Button>
           <Button variant="outline" className="w-full">
             <ChromeIcon className="mr-2 h-4 w-4" />
-            Sign in with Google
+            구글로 로그인
           </Button>
         </div>
       </div>
