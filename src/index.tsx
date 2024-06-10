@@ -4,7 +4,7 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 
-import "./index.css";
+import "./index.css"; //tailwind css
 import App from "./App";
 
 const root = ReactDOM.createRoot(
