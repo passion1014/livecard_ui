@@ -23,22 +23,22 @@ const LoginPage = () => {
             className="mb-4"
           />
           <h1 className="text-2xl font-bold text-[#191919] dark:text-white">
-            다음중의 하나로 로그인
+            라이브 명함
           </h1>
         </div>
 
-        <Button className="w-full mb-4 bg-[#FEE500] text-[#191919] hover:bg-[#FFDF00] dark:bg-[#FEE500] dark:text-[#191919] dark:hover:bg-[#FFDF00]">
+        <Button className="w-full mb-4 bg-[#FEE500] text-[#191919] hover:bg-[#FFDF00] dark:bg-[#FEE500] dark:text-[#191919] dark:hover:bg-[#FFDF00] fontwia">
           <KaKaoIcon className="mr-2 h-5 w-5" />
-          Log in with Kakao
+          <span className="font-bold">카카오로 로그인</span>
         </Button>
         <Button className="w-full mb-4 bg-[#03C75A] text-white hover:bg-[#02B24F] dark:bg-[#03C75A] dark:text-white dark:hover:bg-[#02B24F]">
           {/* <NavigationIcon className="mr-2 h-5 w-5" /> */}
           <NaverIcon className="mr-2 h-5 w-5" />
-          Log in with Naver
+          <span className="font-bold">네이버로 로그인</span>
         </Button>
         <Button className="w-full mb-4 bg-[#4285F4] text-white hover:bg-[#3367D6] dark:bg-[#4285F4] dark:text-white dark:hover:bg-[#3367D6]">
           <GoogleIcon className="mr-2 h-5 w-5" />
-          Log in with Google
+          <span className="font-bold">구글로 로그인</span>
         </Button>
 
         <div className="flex items-center mb-4">
