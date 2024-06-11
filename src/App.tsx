@@ -5,13 +5,12 @@ import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import MyPage from "./pages/MyPage";
-import Header from "./components/common/Header";
+import Header from "./components/common/layout/Header";
 
 const App = () => {
   //const { pathname } = useLocation();
 
   return (
-
     <Routes>
       {/* 인증없이 접근가능한 페이지 */}
       <Route path="/" element={<LandingPage />} />
@@ -22,6 +21,6 @@ const App = () => {
         <Route path="/mypage" element={<MyPage />} />
       </Route>
     </Routes>
-  )
+  );
 };
 export default App;

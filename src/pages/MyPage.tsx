@@ -8,9 +8,55 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
+import IconLink from "src/components/common/link/IconLink";
 import { Avatar, AvatarFallback } from "src/components/shadcn/ui/avatar";
 
 export default function Component() {
+  const IconLinkList = [
+    {
+      to: "#",
+      text: "기본정보",
+      icon: (
+        <UserIcon className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
+      ),
+    },
+    {
+      to: "#",
+      text: "예약 발송함",
+      icon: (
+        <MailOpenIcon className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
+      ),
+    },
+    {
+      to: "#",
+      text: "보낸 카드함",
+      icon: (
+        <SendIcon className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
+      ),
+    },
+    {
+      to: "#",
+      text: "마이앨범 관리",
+      icon: (
+        <ImageIcon className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
+      ),
+    },
+    {
+      to: "#",
+      text: "사진/음성 관리",
+      icon: (
+        <ImageIcon className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
+      ),
+    },
+    {
+      to: "#",
+      text: "결제수단 정보",
+      icon: (
+        <CreditCardIcon className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
+      ),
+    },
+  ];
+
   return (
     <div className="w-full bg-white py-6">
       <div className="container mx-auto px-4 md:px-6">
@@ -70,87 +116,13 @@ export default function Component() {
             </div>
           </div>
         </div>
+
         <div className="grid gap-4">
-          <Link
-            to="#"
-            className="flex items-center justify-between px-4 py-3 bg-white rounded-lg shadow-sm hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800"
-          >
-            <div className="flex items-center">
-              <UserIcon className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
-              <span className="text-gray-900 dark:text-gray-50">기본정보</span>
-            </div>
-            <ChevronRightIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-          </Link>
-          <Link
-            to="#"
-            className="flex items-center justify-between px-4 py-3 bg-white rounded-lg shadow-sm hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800"
-          >
-            <div className="flex items-center">
-              <MailOpenIcon className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
-              <span className="text-gray-900 dark:text-gray-50">
-                예약 발송함
-              </span>
-            </div>
-            <ChevronRightIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-          </Link>
-          <Link
-            to="#"
-            className="flex items-center justify-between px-4 py-3 bg-white rounded-lg shadow-sm hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800"
-          >
-            <div className="flex items-center">
-              <SendIcon className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
-              <span className="text-gray-900 dark:text-gray-50">
-                보낸 카드함
-              </span>
-            </div>
-            <ChevronRightIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-          </Link>
-          <Link
-            to="#"
-            className="flex items-center justify-between px-4 py-3 bg-white rounded-lg shadow-sm hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800"
-          >
-            <div className="flex items-center">
-              <ImageIcon className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
-              <span className="text-gray-900 dark:text-gray-50">
-                마이앨범 관리
-              </span>
-            </div>
-            <ChevronRightIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-          </Link>
-          <Link
-            to="#"
-            className="flex items-center justify-between px-4 py-3 bg-white rounded-lg shadow-sm hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800"
-          >
-            <div className="flex items-center">
-              <ImageIcon className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
-              <span className="text-gray-900 dark:text-gray-50">
-                사진/음성 관리
-              </span>
-            </div>
-            <ChevronRightIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-          </Link>
-          <Link
-            to="#"
-            className="flex items-center justify-between px-4 py-3 bg-white rounded-lg shadow-sm hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800"
-          >
-            <div className="flex items-center">
-              <CreditCardIcon className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
-              <span className="text-gray-900 dark:text-gray-50">
-                결제수단 정보
-              </span>
-            </div>
-            <ChevronRightIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-          </Link>
-          <Link
-            to="#"
-            className="flex items-center justify-between px-4 py-3 bg-white rounded-lg shadow-sm hover:bg-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800"
-          >
-            <div className="flex items-center">
-              <SettingsIcon className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
-              <span className="text-gray-900 dark:text-gray-50">설정</span>
-            </div>
-            <ChevronRightIcon className="w-5 h-5 text-gray-500 dark:text-gray-400" />
-          </Link>
+          {IconLinkList.map((item, index) => (
+            <IconLink to={item.to} text={item.text}>
+              {item.icon}
+            </IconLink>
+          ))}
         </div>
       </div>
     </div>
