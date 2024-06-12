@@ -1,3 +1,3 @@
-export const KAKAO = "KAKAO";
-export const NAVER = "NAVER";
-export const GOOGLE = "GOOGLE";
+export const KAKAO = "kakao";
+export const NAVER = "naver";
+export const GOOGLE = "google";

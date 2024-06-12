@@ -39,7 +39,19 @@ const LoginPage = () => {
    * @param event
    */
   const loginWithKakao = (event: React.MouseEvent<HTMLButtonElement>) => {
-    throw new Error("Function not implemented.");
+    const clientId = "067fc1214d98bfce4fb253f0526b866a"; //TODO:서버에서 받는게 좋을거 같음..https://developers.kakao.com/ 내 애플리케이션>앱 설정>앱 키> REST API 키
+
+    //const redirectUrl = "/loginCallback";
+    const redirectUrl = "http://localhost:3000/loginCallback?provider=" + KAKAO;
+    const scope = "profile_nickname,profile_image";
+
+    window.location.href =
+      "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=" +
+      clientId +
+      "&redirect_uri=" +
+      redirectUrl +
+      "&scope=" +
+      scope;
   };
 
   /**
@@ -47,7 +59,18 @@ const LoginPage = () => {
    * @param event
    */
   const loginWithNaver = (event: React.MouseEvent<HTMLButtonElement>) => {
-    throw new Error("Function not implemented.");
+    const clientId = "9ptmkmJuk85BeO1Qjlj4"; //TODO:서버에서 받는게 좋을거 같음..설정정보들 https://developers.naver.com/
+
+    //const redirectUrl = "/loginCallback";
+    const redirectUrl = "http://localhost:3000/loginCallback?provider=" + NAVER;
+
+    window.location.href =
+      "https://nid.naver.com/oauth2.0/authorize?response_type=code" +
+      "&client_id=" +
+      clientId +
+      "&redirect_uri=" +
+      redirectUrl +
+      "&state=test"; //TODO: 추후 state에 랜덤값을 지정하고 response올때 동일한지 다시 체크해야함
   };
 
   return (

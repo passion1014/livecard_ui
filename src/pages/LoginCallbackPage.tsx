@@ -1,4 +1,4 @@
-import { Progress } from "@radix-ui/react-progress";
+import { Progress } from "src/components/shadcn/ui/progress";
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import api from "src/api/api";
