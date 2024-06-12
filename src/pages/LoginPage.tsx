@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "src/components/shadcn/ui/button";
 import loginImg from "src/asstes/images/login_bg.png";
+import { useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 
 // import GoogleLogo from "src/asstes/images/google_logo.svg";
 // import NaverLogo from "src/asstes/images/naver_logo.svg";
@@ -11,6 +13,29 @@ import loginImg from "src/asstes/images/login_bg.png";
  *  로그인 페이지
  */
 const LoginPage = () => {
+  const loginWithGoogle = useGoogleLogin({
+    scope: "email profile",
+    onSuccess: async ({ code }) => {
+      axios
+        .post("http://localhost:3000/auth/google/callback", { code })
+        .then(({ data }) => {
+          console.log(data);
+        });
+    },
+    onError: (errorResponse) => {
+      console.error(errorResponse);
+    },
+    flow: "auth-code",
+  });
+
+  function loginWithKakao(event: React.MouseEvent<HTMLButtonElement>): void {
+    throw new Error("Function not implemented.");
+  }
+
+  function loginWithNaver(event: React.MouseEvent<HTMLButtonElement>): void {
+    throw new Error("Function not implemented.");
+  }
+
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-[#F7F7F7] dark:bg-[#1E1E1E]">
       <div className="bg-white dark:bg-[#2C2C2C] shadow-md rounded-lg p-8 w-full max-w-md">
@@ -27,16 +52,25 @@ const LoginPage = () => {
           </h1>
         </div>
 
-        <Button className="w-full mb-4 bg-[#FEE500] text-[#191919] hover:bg-[#FFDF00] dark:bg-[#FEE500] dark:text-[#191919] dark:hover:bg-[#FFDF00] fontwia">
+        <Button
+          onClick={loginWithKakao}
+          className="w-full mb-4 bg-[#FEE500] text-[#191919] hover:bg-[#FFDF00] dark:bg-[#FEE500] dark:text-[#191919] dark:hover:bg-[#FFDF00] fontwia"
+        >
           <KaKaoIcon className="mr-2 h-5 w-5" />
           <span className="font-bold">카카오로 로그인</span>
         </Button>
-        <Button className="w-full mb-4 bg-[#03C75A] text-white hover:bg-[#02B24F] dark:bg-[#03C75A] dark:text-white dark:hover:bg-[#02B24F]">
+        <Button
+          onClick={loginWithNaver}
+          className="w-full mb-4 bg-[#03C75A] text-white hover:bg-[#02B24F] dark:bg-[#03C75A] dark:text-white dark:hover:bg-[#02B24F]"
+        >
           {/* <NavigationIcon className="mr-2 h-5 w-5" /> */}
           <NaverIcon className="mr-2 h-5 w-5" />
           <span className="font-bold">네이버로 로그인</span>
         </Button>
-        <Button className="w-full mb-4 bg-[#4285F4] text-white hover:bg-[#3367D6] dark:bg-[#4285F4] dark:text-white dark:hover:bg-[#3367D6]">
+        <Button
+          onClick={loginWithGoogle}
+          className="w-full mb-4 bg-[#4285F4] text-white hover:bg-[#3367D6] dark:bg-[#4285F4] dark:text-white dark:hover:bg-[#3367D6]"
+        >
           <GoogleIcon className="mr-2 h-5 w-5" />
           <span className="font-bold">구글로 로그인</span>
         </Button>

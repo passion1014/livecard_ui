@@ -17,7 +17,12 @@
   "proxy": "http://localhost:8080",
 
 ## shadcn/ui 컴포넌트
+
 https://ui.shadcn.com/
+
+## Icon
+
+https://lucide.dev/icons/
 
 ## 명령어
 
