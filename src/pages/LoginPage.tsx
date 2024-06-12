@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "src/components/shadcn/ui/button";
-import loginImg from "src/asstes/images/login_bg.png";
+import loginImg from "src/assets/images/login_bg.png";
 import { KAKAO, NAVER, GOOGLE } from "src/constants/OauthProvider";
 
 // import GoogleLogo from "src/asstes/images/google_logo.svg";

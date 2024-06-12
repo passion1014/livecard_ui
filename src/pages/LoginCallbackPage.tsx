@@ -30,7 +30,7 @@ const LoginCallbackPage = () => {
       } else if (oauthProvider === GOOGLE) {
       }
 
-      const { data } = await api.post("oauth/google", { accessToken });
+      // const { data } = await api.post("oauth/google", { accessToken });
     };
 
     fetchData();
