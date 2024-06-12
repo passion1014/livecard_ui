@@ -17,13 +17,11 @@ import sample from "src/assets/images/avartar_sample.jpg";
 export default function Component() {
   const IconLinkList = [
     {
-      id: 1,
       to: "#",
       text: "기본정보",
       icon: <Dock className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />,
     },
     {
-      id: 2,
       to: "#",
       text: "예약 발송함",
       icon: (
@@ -31,19 +29,16 @@ export default function Component() {
       ),
     },
     {
-      id: 3,
       to: "#",
       text: "보낸 카드함",
       icon: <Send className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />,
     },
     {
-      id: 4,
       to: "#",
       text: "마이앨범 관리",
       icon: <Image className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />,
     },
     {
-      id: 5,
       to: "#",
       text: "사진/음성 관리",
       icon: (
@@ -51,7 +46,6 @@ export default function Component() {
       ),
     },
     {
-      id: 6,
       to: "#",
       text: "결제수단 정보",
       icon: (
@@ -122,7 +116,7 @@ export default function Component() {
 
         <div className="grid gap-4">
           {IconLinkList.map((item, index) => (
-            <IconLink to={item.to} text={item.text}>
+            <IconLink to={item.to} text={item.text} key={index}>
               {item.icon}
             </IconLink>
           ))}

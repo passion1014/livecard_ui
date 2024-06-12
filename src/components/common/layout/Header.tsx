@@ -28,6 +28,7 @@ const Header = () => {
               <div className="grid gap-2 py-6">
                 {menuList.map((item, index) => (
                   <Link
+                    key={index}
                     to={item.to}
                     className="flex w-full items-center py-2 text-lg font-semibold"
                   >
