@@ -2,8 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "src/components/shadcn/ui/button";
 import loginImg from "src/asstes/images/login_bg.png";
-import { useGoogleLogin } from "@react-oauth/google";
-import axios from "axios";
+import { KAKAO, NAVER, GOOGLE } from "src/constants/OauthProvider";
 
 // import GoogleLogo from "src/asstes/images/google_logo.svg";
 // import NaverLogo from "src/asstes/images/naver_logo.svg";
@@ -13,28 +12,43 @@ import axios from "axios";
  *  로그인 페이지
  */
 const LoginPage = () => {
-  const loginWithGoogle = useGoogleLogin({
-    scope: "email profile",
-    onSuccess: async ({ code }) => {
-      axios
-        .post("http://localhost:3000/auth/google/callback", { code })
-        .then(({ data }) => {
-          console.log(data);
-        });
-    },
-    onError: (errorResponse) => {
-      console.error(errorResponse);
-    },
-    flow: "auth-code",
-  });
+  /**
+   * 구글로 로그인
+   * @param event
+   */
+  const loginWithGoogle = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const clientId = //TODO:서버에서 받는게 좋을거 같음..설정정보들
+      "435968168172-5gq1u0vb3e36bu4rgusrk6beltjf6r7l.apps.googleusercontent.com";
 
-  function loginWithKakao(event: React.MouseEvent<HTMLButtonElement>): void {
-    throw new Error("Function not implemented.");
-  }
+    //const redirectUrl = "/loginCallback";
+    const redirectUrl =
+      "http://localhost:3000/loginCallback?provider=" + GOOGLE;
 
-  function loginWithNaver(event: React.MouseEvent<HTMLButtonElement>): void {
+    window.location.href =
+      "https://accounts.google.com/o/oauth2/auth?" +
+      "client_id=" +
+      clientId +
+      "&redirect_uri=" +
+      redirectUrl +
+      "&response_type=token" +
+      "&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
+  };
+
+  /**
+   * 카카오로 로그인
+   * @param event
+   */
+  const loginWithKakao = (event: React.MouseEvent<HTMLButtonElement>) => {
     throw new Error("Function not implemented.");
-  }
+  };
+
+  /**
+   * 네이버로 로그인
+   * @param event
+   */
+  const loginWithNaver = (event: React.MouseEvent<HTMLButtonElement>) => {
+    throw new Error("Function not implemented.");
+  };
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-[#F7F7F7] dark:bg-[#1E1E1E]">

@@ -12,6 +12,7 @@ const Header = () => {
       <div className="flex items-center gap-4">
         <Button variant="ghost" size="icon" className="lg:hidden">
           <span className="sr-only">Toggle navigation menu</span>
+
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="lg:hidden">
