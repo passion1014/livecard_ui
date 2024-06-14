@@ -19,7 +19,7 @@ const LoginCallbackPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       const parsedHash = new URLSearchParams(window.location.hash.substring(1));
-      const accessToken = parsedHash.get("access_token");
+      const code = parsedHash.get("code");
 
       debugger;
       const searchParams = new URLSearchParams(location.search);
