@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "src/components/shadcn/ui/button";
 import loginImg from "src/assets/images/login_bg.png";
 import { KAKAO, NAVER, GOOGLE } from "src/constants/OauthProvider";
-
+import api from "src/api/api";
 // import GoogleLogo from "src/asstes/images/google_logo.svg";
 // import NaverLogo from "src/asstes/images/naver_logo.svg";
 // import KakaoLogo from "../asstes/images/kakao_logo.svg";
@@ -18,6 +18,9 @@ const LoginPage = () => {
    */
   const loginWithGoogle = (event: React.MouseEvent<HTMLButtonElement>) => {
     window.location.href = "http://localhost:8080/oauth2/authorization/google";
+
+
+
 
     // const clientId = //TODO:서버에서 받는게 좋을거 같음..설정정보들
     //   "435968168172-5gq1u0vb3e36bu4rgusrk6beltjf6r7l.apps.googleusercontent.com";
