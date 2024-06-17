@@ -9,7 +9,8 @@ import {
   CardDescription,
   CardContent,
 } from "src/components/shadcn/ui/card";
-import { GOOGLE, KAKAO, NAVER } from "src/constants/OauthProvider";
+import { setLocalItem } from "src/util/storage";
+
 /**
  *  oauth 로그인후 리다이렉션처리 페이지
  */
@@ -17,43 +18,34 @@ const LoginCallbackPage = () => {
   const location = useLocation();
 
   useEffect(() => {
+
+
+
     const fetchData = async () => {
-      // const parsedHash = new URLSearchParams(window.location.hash.substring(1));
-      // const code: string | null = parsedHash.get("code");
-      const url = new URL(window.location.href);
-      const searchParam = new URLSearchParams(url.search);
-      const code = searchParam.get('code');
+      const params = new URLSearchParams(location.search);
+      const token = params.get('token');
+      setLocalItem('access_token', token);
 
-      //alert(code);
-      if (code == null) {
-        //TODO:
-      }
+      window.location.replace("/");
 
-      const searchParams = new URLSearchParams(location.search);
-      const oauthProvider = searchParams.get("provider");
 
-      let acessCodeUrl: string = "";
-      if (oauthProvider === KAKAO) {
-        acessCodeUrl = 'http://localhost:8080/api/auth/kakao/accesstoken';
-      } else if (oauthProvider === NAVER) {
-        acessCodeUrl = 'http://localhost:8080/api/auth/naver/accesstoken';
-      } else if (oauthProvider === GOOGLE) {
-        acessCodeUrl = 'http://localhost:8080/api/auth/google/accesstoken';
-      }
 
-      api.get(acessCodeUrl, {
-        //api.get('/api/auth/kakao/accesstoken', { //TODO: Proxy설정 확인
-        params: {
-          code: code
-        }
-      })
-        .then(response => {
-          //debugger;
-          console.log('Successfully received access token', response.data);
-        })
-        .catch(error => {
-          console.error('Error receiving access token', error);
-        });
+
+
+
+      // api.get(acessCodeUrl, {
+      //   //api.get('/api/auth/kakao/accesstoken', { //TODO: Proxy설정 확인
+      //   params: {
+      //     code: code
+      //   }
+      // })
+      //   .then(response => {
+      //     //debugger;
+      //     console.log('Successfully received access token', response.data);
+      //   })
+      //   .catch(error => {
+      //     console.error('Error receiving access token', error);
+      //   });
 
       // const { data } = await api.post("oauth/google", { accessToken });
     };

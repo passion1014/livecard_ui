@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "src/components/shadcn/ui/button";
 import loginImg from "src/assets/images/login_bg.png";
-import { KAKAO, NAVER, GOOGLE } from "src/constants/OauthProvider";
+
 import api from "src/api/api";
 // import GoogleLogo from "src/asstes/images/google_logo.svg";
 // import NaverLogo from "src/asstes/images/naver_logo.svg";
@@ -18,26 +18,6 @@ const LoginPage = () => {
    */
   const loginWithGoogle = (event: React.MouseEvent<HTMLButtonElement>) => {
     window.location.href = "http://localhost:8080/oauth2/authorization/google";
-
-
-
-
-    // const clientId = //TODO:서버에서 받는게 좋을거 같음..설정정보들
-    //   "435968168172-5gq1u0vb3e36bu4rgusrk6beltjf6r7l.apps.googleusercontent.com";
-
-    // //const redirectUrl = "/loginCallback";
-    // const redirectUrl =
-    //   "http://localhost:3000/loginCallback?provider=" + GOOGLE;
-
-    // window.location.href =
-    //   "https://accounts.google.com/o/oauth2/auth?" +
-    //   "client_id=" +
-    //   clientId +
-    //   "&redirect_uri=" +
-    //   redirectUrl +
-    //   "&response_type=token" +
-    //   //"&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile";
-    //   "&scope=email+profile";
   };
 
   /**
@@ -46,17 +26,6 @@ const LoginPage = () => {
    */
   const loginWithKakao = (event: React.MouseEvent<HTMLButtonElement>) => {
     window.location.href = "http://localhost:8080/oauth2/authorization/kakao";
-    // const clientId = "067fc1214d98bfce4fb253f0526b866a"; //TODO:서버에서 받는게 좋을거 같음..https://developers.kakao.com/ 내 애플리케이션>앱 설정>앱 키> REST API 키
-
-    // //const redirectUrl = "/loginCallback";
-    // const redirectUrl = "http://localhost:3000/loginCallback?provider=" + KAKAO;
-
-    // window.location.href =
-    //   "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=" +
-    //   clientId +
-    //   "&redirect_uri=" +
-    //   redirectUrl +
-    //   "&scope=profile_nickname,profile_image";
   };
 
   /**
@@ -65,19 +34,6 @@ const LoginPage = () => {
    */
   const loginWithNaver = (event: React.MouseEvent<HTMLButtonElement>) => {
     window.location.href = "http://localhost:8080/oauth2/authorization/naver";
-
-    // const clientId = "9ptmkmJuk85BeO1Qjlj4"; //TODO:서버에서 받는게 좋을거 같음..설정정보들 https://developers.naver.com/
-
-    // //const redirectUrl = "/loginCallback";
-    // const redirectUrl = "http://localhost:3000/loginCallback?provider=" + NAVER;
-
-    // window.location.href =
-    //   "https://nid.naver.com/oauth2.0/authorize?response_type=code" +
-    //   "&client_id=" +
-    //   clientId +
-    //   "&redirect_uri=" +
-    //   redirectUrl +
-    //   "&state=test"; //TODO: 추후 state에 랜덤값을 지정하고 response올때 동일한지 다시 체크해야함
   };
 
   return (
