@@ -3,7 +3,7 @@ import { getLocalItem, getSessionItem, setLocalItem } from "src/util/storage";
 import { tokenApis } from "./tokenApi";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/",
+  baseURL: "http://localhost:8080/", //TODO:로컬에서만 되게끔
   //timeout: 8000,
   headers: {
     "Content-Type": `application/json`,
@@ -24,23 +24,19 @@ api.defaults.withCredentials = true;
 
 // );
 
-
 api.interceptors.request.use((config) => {
   const accessToken = getLocalItem("access_token");
   //TODO: accessToken이 없으면?
   //config.headers.common["Authorization"] = access_token;
   config.headers!.Authorization = `Bearer ${accessToken}`;
 
-
   return config;
 });
 
 api.interceptors.response.use(
   async (response) => {
-
-
-    // const code = response.data?.code;
-    // const message = response.data?.message;
+    const code = response.data?.code;
+    // const message = response.data?.data;
 
     // if (code.startsWith('SYSERR')) {
     //   //시스템 오류
@@ -70,18 +66,15 @@ api.interceptors.response.use(
   async (error) => {
     //응답 200 아닌 경우 - 디버깅
 
-    const refreshToken = getCookie('refresh_token');
-    if (refreshToken == null) return Promise.reject(); //TODO
-    const result = await tokenApis.getAccessToken(refreshToken);
+    // const refreshToken = getCookie('refresh_token');
+    // if (refreshToken == null) return Promise.reject(); //TODO
+    // const result = await tokenApis.getAccessToken(refreshToken);
 
     //setLocalItem('access_token', result.accessToken));
 
-
     return Promise.reject(error);
-  },
+  }
 );
-
-
 
 //   const accessToken = getSessionItem("access_token");
 //   const refreshToken = getSessionItem("refresh_token");
@@ -138,15 +131,13 @@ api.interceptors.response.use(
 // }
 //();
 
-
-
 const getCookie = (key: string) => {
   var result = null;
-  var cookie = document.cookie.split(';');
+  var cookie = document.cookie.split(";");
   cookie.some(function (item) {
-    item = item.replace(' ', '');
+    item = item.replace(" ", "");
 
-    var dic = item.split('=');
+    var dic = item.split("=");
 
     if (key === dic[0]) {
       result = dic[1];
@@ -155,6 +146,6 @@ const getCookie = (key: string) => {
   });
 
   return result;
-}
+};
 
 export default api;

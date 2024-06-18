@@ -1,6 +1,6 @@
 import { Progress } from "src/components/shadcn/ui/progress";
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import api from "src/api/api";
 import {
   Card,
@@ -10,44 +10,33 @@ import {
   CardContent,
 } from "src/components/shadcn/ui/card";
 import { setLocalItem } from "src/util/storage";
+import useLoginUserStore from "src/stores/useLoginUserStore";
 
 /**
  *  oauth 로그인후 리다이렉션처리 페이지
  */
 const LoginCallbackPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { loginUser, setLoginUser } = useLoginUserStore();
 
   useEffect(() => {
-
-
-
     const fetchData = async () => {
+      //====================
+      // acess-token 가져오기
+      //====================
       const params = new URLSearchParams(location.search);
-      const token = params.get('token');
-      setLocalItem('access_token', token);
+      const token = params.get("token");
+      setLocalItem("access_token", token);
 
-      window.location.replace("/");
+      //====================
+      // 사용자 정보 불러오기
+      //====================
+      const response = await api.get("/api/member/loginUser");
+      const data = response.data;
+      setLoginUser(data.data); //로그인 정보 store에 저장
 
-
-
-
-
-
-      // api.get(acessCodeUrl, {
-      //   //api.get('/api/auth/kakao/accesstoken', { //TODO: Proxy설정 확인
-      //   params: {
-      //     code: code
-      //   }
-      // })
-      //   .then(response => {
-      //     //debugger;
-      //     console.log('Successfully received access token', response.data);
-      //   })
-      //   .catch(error => {
-      //     console.error('Error receiving access token', error);
-      //   });
-
-      // const { data } = await api.post("oauth/google", { accessToken });
+      navigate("/");
     };
 
     fetchData();

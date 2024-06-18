@@ -2,16 +2,15 @@ import { create } from "zustand";
 
 export interface MbrUser {
   id: number;
-  userNo: string;
-  email: string;
+  socialId: string;
   name: string;
-  profileImgPath: string;
-  profileImgNm: string;
-  profileImgExt: string;
+  providerCd: string;
+  role: string;
+  profileImg: string;
 }
 
 export interface MbrUserStore {
-  user: MbrUser | null;
+  loginUser: MbrUser | null;
   setLoginUser: (user: MbrUser) => void;
   clearLoginUser: () => void;
 }
@@ -20,9 +19,13 @@ export interface MbrUserStore {
  * 로그인 후의 사용자 정보 store
  */
 const useLoginUserStore = create<MbrUserStore>((set) => ({
-  user: null,
-  setLoginUser: (user: MbrUser) => set({ user }),
-  clearLoginUser: () => set({ user: null }),
+  loginUser: null,
+  setLoginUser: (loginUser: MbrUser) => {
+    set({ loginUser });
+
+    console.log(loginUser); // 업데이트된 값 사용
+  },
+  clearLoginUser: () => set({ loginUser: null }),
 }));
 
 export default useLoginUserStore;

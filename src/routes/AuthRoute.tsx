@@ -8,8 +8,7 @@ import SideBar from "src/components/common/layout/SideBar";
 const AuthoRoute = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
-  const { user } = useLoginUserStore();
+  //const { user } = useLoginUserStore();
 
   // useEffect(() => {
   //   if (!user) {
