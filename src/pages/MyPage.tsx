@@ -25,7 +25,6 @@ export default function MyPage() {
     const fetchData = async () => {
       const response = await api.get("/api/member/detail");
       const data = response.data;
-      debugger;
 
       setMyState({
         myCard: data.myCard,

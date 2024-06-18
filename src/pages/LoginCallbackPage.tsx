@@ -36,6 +36,7 @@ const LoginCallbackPage = () => {
       const response = await userApi.getLoginUser();
       const data = response.data;
       setLoginUser(data.data); //로그인 정보 store에 저장
+      setLocalItem('loginUser', JSON.stringify(data.data)); //사용자 정보 local storage에 저장
 
       navigate("/");
     };

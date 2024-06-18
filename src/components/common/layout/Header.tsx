@@ -9,18 +9,9 @@ import useLoginUserStore from "src/stores/useLoginUserStore";
 import { userApi } from "src/api/userApi";
 import api from "src/api/api";
 
+
 const Header = () => {
-  const { loginUser, setLoginUser } = useLoginUserStore();
-  // useEffect(() => {
-  //   const fetchData = async () => {
-
-  //     const response = await api.get("");
-  //     const data = response.data;
-  //     setLoginUser(data.data); //로그인 정보 store에 저장
-  //   };
-
-  //   fetchData();
-  // }, []);
+  const { loginUser } = useLoginUserStore();
 
   return (
     <header className="flex h-16 items-center justify-between bg-gray-900 px-4 text-white md:px-6">
@@ -60,18 +51,22 @@ const Header = () => {
         </Link>
       </div>
       <div className="hidden items-center gap-4 md:flex">
-        <div className="flex items-center gap-2">
-          <Avatar className="h-8 w-8">
-            <AvatarImage src={loginUser?.profileImg} />
-          </Avatar>
-          <div className="text-sm font-medium">
-            <div>{loginUser?.name}</div>
-            <div
-              className="text-gray-400"
-              onClick={() => window.open("", "_blank")}
-            ></div>
+        {loginUser ?
+          <div className="flex items-center gap-2">
+            <Avatar className="h-8 w-8">
+              <AvatarImage src={loginUser?.profileImg} />
+            </Avatar>
+            <div className="text-sm font-medium">
+              <div>{loginUser?.name}</div>
+              <div
+                className="text-gray-400"
+                onClick={() => window.open("", "_blank")}
+              ></div>
+            </div>
           </div>
-        </div>
+          : <Button asChild>
+            <Link to="/login">로그인</Link>
+          </Button>}
       </div>
     </header>
   );
