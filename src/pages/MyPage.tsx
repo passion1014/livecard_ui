@@ -23,14 +23,14 @@ export default function MyPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await api.get("/api/member/memberDetail");
+      const response = await api.get("/api/member/detail");
       const data = response.data;
       debugger;
 
       setMyState({
         myCard: data.myCard,
         sent: data.sent,
-        point: data.data.memberBalanceDto.point,
+        point: data.data.memberBalanceDto?.point ?? 0,
       });
     };
 
