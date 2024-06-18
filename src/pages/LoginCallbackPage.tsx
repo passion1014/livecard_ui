@@ -11,6 +11,7 @@ import {
 } from "src/components/shadcn/ui/card";
 import { setLocalItem } from "src/util/storage";
 import useLoginUserStore from "src/stores/useLoginUserStore";
+import { userApi } from "src/api/userApi";
 
 /**
  *  oauth 로그인후 리다이렉션처리 페이지
@@ -18,7 +19,7 @@ import useLoginUserStore from "src/stores/useLoginUserStore";
 const LoginCallbackPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { loginUser, setLoginUser } = useLoginUserStore();
+  const { setLoginUser } = useLoginUserStore();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,7 +33,7 @@ const LoginCallbackPage = () => {
       //====================
       // 사용자 정보 불러오기
       //====================
-      const response = await api.get("/api/member/loginUser");
+      const response = await userApi.getLoginUser();
       const data = response.data;
       setLoginUser(data.data); //로그인 정보 store에 저장
 

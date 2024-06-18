@@ -1,12 +1,27 @@
 import { Button } from "../../shadcn/ui/button";
 import { Sheet, SheetTrigger, SheetContent } from "../../shadcn/ui/sheet";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Avatar, AvatarFallback } from "../../shadcn/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "../../shadcn/ui/avatar";
 import menuList from "../menu/menuList";
 import { MenuIcon, MountainIcon } from "lucide-react";
+import useLoginUserStore from "src/stores/useLoginUserStore";
+import { userApi } from "src/api/userApi";
+import api from "src/api/api";
 
 const Header = () => {
+  const { loginUser, setLoginUser } = useLoginUserStore();
+  // useEffect(() => {
+  //   const fetchData = async () => {
+
+  //     const response = await api.get("");
+  //     const data = response.data;
+  //     setLoginUser(data.data); //로그인 정보 store에 저장
+  //   };
+
+  //   fetchData();
+  // }, []);
+
   return (
     <header className="flex h-16 items-center justify-between bg-gray-900 px-4 text-white md:px-6">
       <div className="flex items-center gap-4">
@@ -47,17 +62,14 @@ const Header = () => {
       <div className="hidden items-center gap-4 md:flex">
         <div className="flex items-center gap-2">
           <Avatar className="h-8 w-8">
-            <img src="/placeholder.svg" alt="Avatar" />
-            <AvatarFallback>JD</AvatarFallback>
+            <AvatarImage src={loginUser?.profileImg} />
           </Avatar>
           <div className="text-sm font-medium">
-            <div>John Doe</div>
+            <div>{loginUser?.name}</div>
             <div
               className="text-gray-400"
               onClick={() => window.open("", "_blank")}
-            >
-              ID: 12345
-            </div>
+            ></div>
           </div>
         </div>
       </div>

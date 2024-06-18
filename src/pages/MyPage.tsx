@@ -8,49 +8,66 @@ import {
   Send,
   WalletCards,
 } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import IconLink from "src/components/common/link/IconLink";
-import { Avatar, AvatarFallback } from "src/components/shadcn/ui/avatar";
+import { Avatar, AvatarImage } from "src/components/shadcn/ui/avatar";
 import sample from "src/assets/images/avartar_sample.jpg";
+import useLoginUserStore from "src/stores/useLoginUserStore";
+import api from "src/api/api";
 
-export default function Component() {
+export default function MyPage() {
+  const { loginUser } = useLoginUserStore();
+
+  const [myState, setMyState] = useState({ myCard: 0, sent: 0, point: 0 });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await api.get("/api/member/memberDetail");
+      const data = response.data;
+      debugger;
+
+      setMyState({
+        myCard: data.myCard,
+        sent: data.sent,
+        point: data.data.memberBalanceDto.point,
+      });
+    };
+
+    fetchData();
+  }, []);
+
+  const iconClass = "w-5 h-5 mr-2 text-gray-500 dark:text-gray-400";
   const IconLinkList = [
     {
       to: "#",
       text: "기본정보",
-      icon: <Dock className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />,
+      icon: <Dock className={iconClass} />,
     },
     {
       to: "#",
       text: "예약 발송함",
-      icon: (
-        <MailOpen className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
-      ),
+      icon: <MailOpen className={iconClass} />,
     },
     {
       to: "#",
       text: "보낸 카드함",
-      icon: <Send className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />,
+      icon: <Send className={iconClass} />,
     },
     {
       to: "#",
       text: "마이앨범 관리",
-      icon: <Image className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />,
+      icon: <Image className={iconClass} />,
     },
     {
       to: "#",
       text: "사진/음성 관리",
-      icon: (
-        <ImagePlay className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
-      ),
+      icon: <ImagePlay className={iconClass} />,
     },
     {
       to: "#",
       text: "결제수단 정보",
-      icon: (
-        <WalletCards className="w-5 h-5 mr-2 text-gray-500 dark:text-gray-400" />
-      ),
+      icon: <WalletCards className={iconClass} />,
     },
   ];
 
@@ -70,14 +87,13 @@ export default function Component() {
         </div>
         <div className="flex items-center mb-6">
           <Avatar className="mr-4 h-20 w-20">
-            <img src={sample} alt="User Avatar" />
-            <AvatarFallback>JP</AvatarFallback>
+            <AvatarImage src={loginUser?.profileImg} />
           </Avatar>
           <div className="flex items-center">
             <MicVocal className="mr-2 h-5 w-5 text-gray-500 dark:text-gray-400" />
             <div className="flex flex-col">
               <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
-                John Doe
+                {loginUser?.name}
               </h2>
               <p className="text-sm text-gray-500 dark:text-gray-400">
                 Software Engineer
@@ -107,7 +123,7 @@ export default function Component() {
                   포인트
                 </p>
                 <p className="text-2xl font-semibold text-gray-900 dark:text-gray-50">
-                  50점
+                  {myState.point}점
                 </p>
               </div>
             </div>
