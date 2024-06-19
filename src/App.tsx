@@ -11,19 +11,19 @@ import PageNotFoundPage from "./pages/PageNotFoundPage";
 import { getLocalItem } from "./util/storage";
 import useLoginUserStore from "./stores/useLoginUserStore";
 
-const App = () => {
+import CardPreviewPage from "./pages/CardPreviewPage";
+import CardCreatePage from "./pages/CardCreatePage";
+import User from "./constants/User";
 
+const App = () => {
   const { setLoginUser } = useLoginUserStore();
 
   useEffect(() => {
-    const loginUser: string = getLocalItem('loginUser');
+    const loginUser: string = getLocalItem(User.LOGIN_USER);
     if (loginUser) {
       setLoginUser(JSON.parse(loginUser)); //로그인 정보 store에 저장
     }
-
   }, []);
-
-
 
   return (
     <Routes>
@@ -36,6 +36,8 @@ const App = () => {
       {/* 인증 필요 페이지 */}
       <Route element={<AuthoRoute />}>
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/card/create" element={<CardCreatePage />} />
+        <Route path="/card/preview" element={<CardPreviewPage />} />
       </Route>
     </Routes>
   );
