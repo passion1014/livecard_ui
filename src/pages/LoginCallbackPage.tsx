@@ -12,6 +12,8 @@ import {
 import { setLocalItem } from "src/util/storage";
 import useLoginUserStore from "src/stores/useLoginUserStore";
 import { userApi } from "src/api/userApi";
+import Token from "src/constants/Token";
+import User from "src/constants/User";
 
 /**
  *  oauth 로그인후 리다이렉션처리 페이지
@@ -28,7 +30,7 @@ const LoginCallbackPage = () => {
       //====================
       const params = new URLSearchParams(location.search);
       const token = params.get("token");
-      setLocalItem("access_token", token);
+      setLocalItem(Token.ACCESS_TOKEN, token);
 
       //====================
       // 사용자 정보 불러오기
@@ -36,7 +38,7 @@ const LoginCallbackPage = () => {
       const response = await userApi.getLoginUser();
       const data = response.data;
       setLoginUser(data.data); //로그인 정보 store에 저장
-      setLocalItem('loginUser', JSON.stringify(data.data)); //사용자 정보 local storage에 저장
+      setLocalItem(User.LOGIN_USER, JSON.stringify(data.data)); //사용자 정보 local storage에 저장
 
       navigate("/");
     };

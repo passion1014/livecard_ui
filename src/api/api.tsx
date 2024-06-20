@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getLocalItem, getSessionItem, setLocalItem } from "src/util/storage";
 import { tokenApis } from "./tokenApi";
+import Token from "src/constants/Token";
 
 const api = axios.create({
   baseURL: "http://localhost:8080/", //TODO:로컬에서만 되게끔
@@ -25,7 +26,7 @@ api.defaults.withCredentials = true;
 // );
 
 api.interceptors.request.use((config) => {
-  const accessToken = getLocalItem("access_token");
+  const accessToken = getLocalItem(Token.ACCESS_TOKEN);
   //TODO: accessToken이 없으면?
   //config.headers.common["Authorization"] = access_token;
   config.headers!.Authorization = `Bearer ${accessToken}`;
@@ -130,22 +131,5 @@ api.interceptors.response.use(
 //   return Promise.reject(error);
 // }
 //();
-
-const getCookie = (key: string) => {
-  var result = null;
-  var cookie = document.cookie.split(";");
-  cookie.some(function (item) {
-    item = item.replace(" ", "");
-
-    var dic = item.split("=");
-
-    if (key === dic[0]) {
-      result = dic[1];
-      return true;
-    }
-  });
-
-  return result;
-};
 
 export default api;
