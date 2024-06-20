@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "src/components/shadcn/ui/button";
 import loginImg from "src/assets/images/login_bg.png";
 
-import api from "src/api/api";
+import useLoginUserStore from "src/stores/useLoginUserStore";
 // import GoogleLogo from "src/asstes/images/google_logo.svg";
 // import NaverLogo from "src/asstes/images/naver_logo.svg";
 // import KakaoLogo from "../asstes/images/kakao_logo.svg";
@@ -12,6 +12,14 @@ import api from "src/api/api";
  *  로그인 페이지
  */
 const LoginPage = () => {
+  const { loginUser } = useLoginUserStore();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!loginUser) {
+      navigate("/login");
+    }
+  }, [navigate, loginUser]);
+
   /**
    * 구글로 로그인
    * @param event

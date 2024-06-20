@@ -15,14 +15,11 @@ const LandingPage = () => {
   const [providerNm, setProviderNm] = useState<string | undefined>(undefined);
 
   useEffect(() => {
+    console.log("LandingPage() useEffect 시작");
     if (loginUser?.providerCd === "0") setProviderNm("KAKAO");
     else if (loginUser?.providerCd === "1") setProviderNm("NAVER");
     else if (loginUser?.providerCd === "2") setProviderNm("GOOGLE");
-  }, [navigate]);
-
-  if (!loginUser) {
-    navigate("/login");
-  }
+  }, [navigate, loginUser]);
 
   return (
     <div>
