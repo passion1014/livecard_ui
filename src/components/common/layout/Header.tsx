@@ -8,10 +8,17 @@ import { MenuIcon, MountainIcon } from "lucide-react";
 import useLoginUserStore from "src/stores/useLoginUserStore";
 import { userApi } from "src/api/userApi";
 import api from "src/api/api";
-
+import { getLocalItem } from "src/util/storage";
 
 const Header = () => {
-  const { loginUser } = useLoginUserStore();
+  const { loginUser, setLoginUser } = useLoginUserStore();
+
+  useEffect(() => {
+    if (!loginUser) {
+      //스토리지에 저장된 로그인 정보를 store에 저장
+      setLoginUser(JSON.parse(getLocalItem("loginUser")));
+    }
+  }, [loginUser]);
 
   return (
     <header className="flex h-16 items-center justify-between bg-gray-900 px-4 text-white md:px-6">
@@ -51,7 +58,7 @@ const Header = () => {
         </Link>
       </div>
       <div className="hidden items-center gap-4 md:flex">
-        {loginUser ?
+        {loginUser ? (
           <div className="flex items-center gap-2">
             <Avatar className="h-8 w-8">
               <AvatarImage src={loginUser?.profileImg} />
@@ -64,9 +71,11 @@ const Header = () => {
               ></div>
             </div>
           </div>
-          : <Button asChild>
+        ) : (
+          <Button asChild>
             <Link to="/login">로그인</Link>
-          </Button>}
+          </Button>
+        )}
       </div>
     </header>
   );
