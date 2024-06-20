@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "src/components/shadcn/ui/button";
-import Provider from "src/constants/Provider";
 import Token from "src/constants/Token";
 import User from "src/constants/User";
 import useLoginUserStore from "src/stores/useLoginUserStore";
-import { removeCookie } from "src/util/cookie";
-import { getLocalItem, removeLocalItem } from "src/util/storage";
+import { removeLocalItem } from "src/util/storage";
 
 /**
  *  랜딩 페이지
@@ -20,13 +18,11 @@ const LandingPage = () => {
     if (loginUser?.providerCd === "0") setProviderNm("KAKAO");
     else if (loginUser?.providerCd === "1") setProviderNm("NAVER");
     else if (loginUser?.providerCd === "2") setProviderNm("GOOGLE");
+  }, [navigate]);
 
-    console.log("loginUser=" + loginUser);
-
-    if (!loginUser) {
-      //navigate("/login"); //TODO:
-    }
-  }, [loginUser, navigate]);
+  if (!loginUser) {
+    navigate("/login");
+  }
 
   return (
     <div>
@@ -39,10 +35,8 @@ const LandingPage = () => {
           onClick={() => {
             removeLocalItem(Token.ACCESS_TOKEN);
             removeLocalItem(User.LOGIN_USER);
-            removeCookie(Token.REFRESH_TOKEN);
             clearLoginUser();
-
-            navigate("/");
+            navigate("/login");
 
             // if (loginUser?.providerCd === Provider.KAKAO) {
             //   window.location.href = "https://kauth.kakao.com/oauth/logout";

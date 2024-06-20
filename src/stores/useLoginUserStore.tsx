@@ -22,8 +22,6 @@ const useLoginUserStore = create<MbrUserStore>((set) => ({
   loginUser: null,
   setLoginUser: (loginUser: MbrUser) => {
     set({ loginUser });
-
-    console.log(loginUser); // 업데이트된 값 사용
   },
   clearLoginUser: () => set({ loginUser: null }),
 }));

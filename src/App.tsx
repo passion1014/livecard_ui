@@ -1,30 +1,16 @@
-import React, { useEffect } from "react";
-import { Route, Routes, useLocation } from "react-router-dom";
+import React from "react";
+import { Route, Routes } from "react-router-dom";
 import AuthoRoute from "./routes/AuthRoute";
 import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignupPage";
 import MyPage from "./pages/MyPage";
-import Header from "./components/common/layout/Header";
 import LoginCallbackPage from "./pages/LoginCallbackPage";
 import PageNotFoundPage from "./pages/PageNotFoundPage";
-import { getLocalItem } from "./util/storage";
-import useLoginUserStore from "./stores/useLoginUserStore";
 
 import CardPreviewPage from "./pages/CardPreviewPage";
 import CardCreatePage from "./pages/CardCreatePage";
-import User from "./constants/User";
 
 const App = () => {
-  const { setLoginUser } = useLoginUserStore();
-
-  useEffect(() => {
-    const loginUser: string = getLocalItem(User.LOGIN_USER);
-    if (loginUser) {
-      setLoginUser(JSON.parse(loginUser)); //로그인 정보 store에 저장
-    }
-  }, []);
-
   return (
     <Routes>
       {/* 인증없이 접근가능한 페이지 */}
