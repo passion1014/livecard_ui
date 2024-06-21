@@ -66,7 +66,7 @@ const LandingPage = () => {
         >
           마이페이지
         </Button>
-        <wButton
+        <Button
           variant="outline"
           onClick={() => {
             navigate("/card/create");
