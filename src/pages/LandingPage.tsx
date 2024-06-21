@@ -66,13 +66,22 @@ const LandingPage = () => {
         >
           마이페이지
         </Button>
-        <Button
+        <wButton
           variant="outline"
           onClick={() => {
             navigate("/card/create");
           }}
         >
           카드 만들기
+        </Button>
+
+        <Button
+          variant="outline"
+          onClick={() => {
+            navigate("/card/preview");
+          }}
+        >
+          카드 미리보기
         </Button>
       </div>
     </div>
