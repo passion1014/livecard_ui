@@ -16,7 +16,7 @@ import { Textarea } from "src/components/shadcn/ui/textarea";
 export default function CardCreatePage() {
   return (
     <div>
-      <Card className="w-full max-w-md">
+      <Card className="w-full">
         <CardContent className="space-y-4">
           <Carousel opts={{ align: "start" }} className="w-full max-w-sm">
             <CarouselContent className="-ml-3">
