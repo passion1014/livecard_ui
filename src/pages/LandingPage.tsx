@@ -74,6 +74,15 @@ const LandingPage = () => {
         >
           카드 만들기
         </Button>
+
+        <Button
+          variant="outline"
+          onClick={() => {
+            navigate("/card/preview");
+          }}
+        >
+          카드 미리보기
+        </Button>
       </div>
     </div>
   );
