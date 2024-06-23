@@ -6,7 +6,7 @@ import { Button } from "src/components/shadcn/ui/button";
 export default function CardPreviewPage() {
   return (
     <>
-      <div className="max-w-lg mx-auto p-4 space-y-4">
+      <div className="mx-auto p-4 space-y-4">
         <header className="flex items-center space-x-4 p-4 bg-gray-100 rounded-md">
           <HomeIcon className="h-8 w-8" />
           <div className="flex-1">
