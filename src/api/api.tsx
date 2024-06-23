@@ -70,12 +70,15 @@ api.interceptors.response.use(
     //   Authorization: `${newAccessToken}`,
     // };
     //}
+
+
     return response;
   },
   async (error) => {
     if (error.response.status === 401) { //unauthorised.
-      const response = await api.post("/api/token", getCookie(Token.REFRESH_TOKEN));
-      const data = response.data;
+      // const response = await api.post("/api/token", getCookie(Token.REFRESH_TOKEN));
+      // const data = response.data;
+      debugger
 
     }
     //debugger
