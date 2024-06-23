@@ -2,6 +2,7 @@ import axios from "axios";
 import { getLocalItem, getSessionItem, setLocalItem } from "src/util/storage";
 import { tokenApis } from "./tokenApi";
 import Token from "src/constants/Token";
+import { getCookie } from "src/util/cookie";
 
 const api = axios.create({
   baseURL: "http://localhost:8080/", //TODO:로컬에서만 되게끔
@@ -25,6 +26,9 @@ api.defaults.withCredentials = true;
 
 // );
 
+/**
+ * HTTP Request 전처리
+ */
 api.interceptors.request.use((config) => {
   const accessToken = getLocalItem(Token.ACCESS_TOKEN);
   //TODO: accessToken이 없으면?
@@ -34,8 +38,12 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+/**
+ * HTTP Response 전처리
+ */
 api.interceptors.response.use(
   async (response) => {
+
     const code = response.data?.code;
     // const message = response.data?.data;
 
@@ -65,6 +73,13 @@ api.interceptors.response.use(
     return response;
   },
   async (error) => {
+    if (error.response.status === 401) { //unauthorised.
+      const response = await api.post("/api/token", getCookie(Token.REFRESH_TOKEN));
+      const data = response.data;
+
+    }
+    //debugger
+
     //응답 200 아닌 경우 - 디버깅
 
     // const refreshToken = getCookie('refresh_token');

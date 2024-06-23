@@ -18,7 +18,7 @@ export default function CardCreatePage() {
     <div>
       <Card className="w-full">
         <CardContent className="space-y-4">
-          <Carousel opts={{ align: "start" }} className="w-full max-w-sm">
+          <Carousel opts={{ align: "start" }} className="w-full">
             <CarouselContent className="-ml-3">
               {Array.from({ length: 5 }).map((_, index) => (
                 <CarouselItem key={index} className="md:basis-5/6 lg:basis-5/6">
