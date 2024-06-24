@@ -23,35 +23,33 @@ const Header = () => {
   return (
     <header className="flex h-16 items-center justify-between bg-gray-900 px-4 text-white md:px-6">
       <div className="flex items-center gap-4">
-        <Button variant="ghost" size="icon" className="lg:hidden">
-          <span className="sr-only">Toggle navigation menu</span>
+        <span className="sr-only">Toggle navigation menu</span>
 
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="lg:hidden">
-                <MenuIcon className="h-6 w-6" />
-                <span className="sr-only">Toggle navigation menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left">
-              <Link to="#">
-                <MountainIcon className="h-6 w-6" />
-                <span className="sr-only">라이브 명함</span>
-              </Link>
-              <div className="grid gap-2 py-6">
-                {menuList.map((item, index) => (
-                  <Link
-                    key={index}
-                    to={item.to}
-                    className="flex w-full items-center py-2 text-lg font-semibold"
-                  >
-                    {item.text}
-                  </Link>
-                ))}
-              </div>
-            </SheetContent>
-          </Sheet>
-        </Button>
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="lg:hidden">
+              <MenuIcon className="h-6 w-6" />
+              <span className="sr-only">Toggle navigation menu</span>
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left">
+            <Link to="#">
+              <MountainIcon className="h-6 w-6" />
+              <span className="sr-only">라이브 명함</span>
+            </Link>
+            <div className="grid gap-2 py-6">
+              {menuList.map((item, index) => (
+                <Link
+                  key={index}
+                  to={item.to}
+                  className="flex w-full items-center py-2 text-lg font-semibold"
+                >
+                  {item.text}
+                </Link>
+              ))}
+            </div>
+          </SheetContent>
+        </Sheet>
         <Link to="#" className="flex items-center gap-2">
           <MountainIcon className="h-6 w-6" />
           <span className="sr-only">Acme Inc</span>

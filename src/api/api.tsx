@@ -1,7 +1,13 @@
 import axios from "axios";
-import { getLocalItem, getSessionItem, setLocalItem } from "src/util/storage";
+import {
+  getLocalItem,
+  getSessionItem,
+  removeLocalItem,
+  setLocalItem,
+} from "src/util/storage";
 import { tokenApis } from "./tokenApi";
 import Token from "src/constants/Token";
+import { getCookie } from "src/util/cookie";
 
 const api = axios.create({
   baseURL: "http://localhost:8080/", //TODO:로컬에서만 되게끔
@@ -25,6 +31,9 @@ api.defaults.withCredentials = true;
 
 // );
 
+/**
+ * HTTP Request 전처리
+ */
 api.interceptors.request.use((config) => {
   const accessToken = getLocalItem(Token.ACCESS_TOKEN);
   //TODO: accessToken이 없으면?
@@ -34,6 +43,9 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+/**
+ * HTTP Response 전처리
+ */
 api.interceptors.response.use(
   async (response) => {
     const code = response.data?.code;
@@ -62,74 +74,41 @@ api.interceptors.response.use(
     //   Authorization: `${newAccessToken}`,
     // };
     //}
+
     return response;
   },
   async (error) => {
-    //응답 200 아닌 경우 - 디버깅
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true; // 무한루프 방지
 
-    // const refreshToken = getCookie('refresh_token');
-    // if (refreshToken == null) return Promise.reject(); //TODO
-    // const result = await tokenApis.getAccessToken(refreshToken);
+      try {
+        //TODO: token expired 구분하기 위해서 서버에서 메시지 처리하기
+        //unauthorised.
+        const response = await api.post(
+          "/api/token",
+          getCookie(Token.REFRESH_TOKEN)
+        );
 
-    //setLocalItem('access_token', result.accessToken));
+        const accessToken = response.data;
+        if (accessToken) {
+          setLocalItem(Token.ACCESS_TOKEN, accessToken);
+        } else {
+          //TODO: 에러 보여주기
+          return Promise.reject(error);
+        }
 
-    return Promise.reject(error);
+        return api(error.config);
+      } catch (refreshError) {
+        console.error("Token refresh failed:", refreshError);
+        removeLocalItem(Token.ACCESS_TOKEN);
+        window.location.href = "/login";
+        return Promise.reject(refreshError);
+      }
+    } else {
+      //TODO: Alert 띄우기
+    }
   }
 );
-
-//   const accessToken = getSessionItem("access_token");
-//   const refreshToken = getSessionItem("refresh_token");
-//   if (accessToken) {
-//     /** 2. access토큰 있으면 만료됐는지 체크 */
-//     if (isJwtTokenExpired(accessToken)) {
-//       /** 3. 만료되면 만료된 access, refresh 같이 헤더 담아서 요청 */
-//       config.headers!.Authorization = `Bearer ${accessToken}`;
-//       config.headers!.Refresh = `Bearer ${refreshToken}`;
-//     } else {
-//       config.headers!.Authorization = `Bearer ${accessToken}`;
-//     }
-//   }
-//   return config;
-// },
-// (error) => Promise.reject(error)
-//  ();
-
-/** 4. 응답 전 - 새 access토큰받으면 갈아끼기 */
-// api.interceptors.response
-//   .use
-// async (response) => {
-// const code = response.data?.code;
-// const message = response.data?.message;
-
-// if (code.startsWith("SYSERR")) {
-//   //시스템 오류
-//   alert(message);
-//   return Promise.reject();
-// }
-
-// if (response.headers.authorization) {
-//   const newAccessToken = response?.headers?.authorization;
-//   if (newAccessToken == null) {
-//     alert(`처리 중 오류가 발생했습니다: 사용자정보 없음`);
-//     return Promise.reject();
-//   }
-
-// localStorage.removeItem('access_token'); // 만료된 access토큰 삭제
-// localStorage.setItem('access_token', newAccessToken); // 새걸로 교체
-
-// response.config.headers.Authorization = `${newAccessToken}`;
-
-// response.config.headers = {
-//   ...response.config.headers,
-//   Authorization: `${newAccessToken}`,
-// };
-// }
-//   return response;
-// },
-// (error) => {
-//   //응답 200 아닌 경우 - 디버깅
-//   return Promise.reject(error);
-// }
-//();
 
 export default api;
