@@ -43,7 +43,6 @@ api.interceptors.request.use((config) => {
  */
 api.interceptors.response.use(
   async (response) => {
-
     const code = response.data?.code;
     // const message = response.data?.data;
 
@@ -71,83 +70,28 @@ api.interceptors.response.use(
     // };
     //}
 
-
     return response;
   },
   async (error) => {
-    if (error.response.status === 401) { //unauthorised.
-      // const response = await api.post("/api/token", getCookie(Token.REFRESH_TOKEN));
-      // const data = response.data;
-      debugger
+    if (error.response.status === 401) {
+      //TODO: token expired 구분하기 위해서 서버에서 메시지 처리하기
+      //unauthorised.
+      const response = await api.post(
+        "/api/token",
+        getCookie(Token.REFRESH_TOKEN)
+      );
+      const accessToken = response.data;
+      if (accessToken) {
+        setLocalItem(Token.ACCESS_TOKEN, accessToken);
+      } else {
+        //TODO: 에러 보여주기
+      }
 
+      return axios(error.config);
     }
-    //debugger
-
-    //응답 200 아닌 경우 - 디버깅
-
-    // const refreshToken = getCookie('refresh_token');
-    // if (refreshToken == null) return Promise.reject(); //TODO
-    // const result = await tokenApis.getAccessToken(refreshToken);
-
-    //setLocalItem('access_token', result.accessToken));
 
     return Promise.reject(error);
   }
 );
-
-//   const accessToken = getSessionItem("access_token");
-//   const refreshToken = getSessionItem("refresh_token");
-//   if (accessToken) {
-//     /** 2. access토큰 있으면 만료됐는지 체크 */
-//     if (isJwtTokenExpired(accessToken)) {
-//       /** 3. 만료되면 만료된 access, refresh 같이 헤더 담아서 요청 */
-//       config.headers!.Authorization = `Bearer ${accessToken}`;
-//       config.headers!.Refresh = `Bearer ${refreshToken}`;
-//     } else {
-//       config.headers!.Authorization = `Bearer ${accessToken}`;
-//     }
-//   }
-//   return config;
-// },
-// (error) => Promise.reject(error)
-//  ();
-
-/** 4. 응답 전 - 새 access토큰받으면 갈아끼기 */
-// api.interceptors.response
-//   .use
-// async (response) => {
-// const code = response.data?.code;
-// const message = response.data?.message;
-
-// if (code.startsWith("SYSERR")) {
-//   //시스템 오류
-//   alert(message);
-//   return Promise.reject();
-// }
-
-// if (response.headers.authorization) {
-//   const newAccessToken = response?.headers?.authorization;
-//   if (newAccessToken == null) {
-//     alert(`처리 중 오류가 발생했습니다: 사용자정보 없음`);
-//     return Promise.reject();
-//   }
-
-// localStorage.removeItem('access_token'); // 만료된 access토큰 삭제
-// localStorage.setItem('access_token', newAccessToken); // 새걸로 교체
-
-// response.config.headers.Authorization = `${newAccessToken}`;
-
-// response.config.headers = {
-//   ...response.config.headers,
-//   Authorization: `${newAccessToken}`,
-// };
-// }
-//   return response;
-// },
-// (error) => {
-//   //응답 200 아닌 경우 - 디버깅
-//   return Promise.reject(error);
-// }
-//();
 
 export default api;
