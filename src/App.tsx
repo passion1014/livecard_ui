@@ -9,16 +9,40 @@ import LoginCallbackPage from "./pages/LoginCallbackPage";
 import PageNotFoundPage from "./pages/PageNotFoundPage";
 import CardCreatePage from "./pages/CardCreatePage";
 import CardPreviewPage from "./pages/CardPreviewPage";
+import Alert from "./components/common/dialog/Alert";
+import { useAlertStore } from "./stores/useAlertStore";
+import TestPage from "./pages/TestPage";
+import Confirm from "./components/common/dialog/Confirm";
+import { useConfirmStore } from "./stores/useConfirmStore";
 
 const App = () => {
   const { pathname } = useLocation();
+  const alert = useAlertStore();
+  const confirm = useConfirmStore();
 
   return (
     <div className="flex h-screen w-full flex-col">
+      <Alert
+        open={alert.isOpen}
+        setOpen={alert.setOpen}
+        title={alert.title}
+        desc={alert.desc}
+        onCancel={alert.onCancel}
+        onOk={alert.onOk}
+      />
+      <Confirm
+        open={confirm.isOpen}
+        setOpen={confirm.setOpen}
+        title={confirm.title}
+        desc={confirm.desc}
+        onOk={confirm.onOk}
+      />
+
       {pathname === "/login" ? null : <Header />}
       <Routes>
         {/* 인증없이 접근가능한 페이지 */}
         <Route path="/" element={<LandingPage />} />
+        <Route path="/test" element={<TestPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/loginCallback" element={<LoginCallbackPage />} />
         <Route path="/*" element={<PageNotFoundPage />} />

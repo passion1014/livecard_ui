@@ -1,32 +1,48 @@
-
-import { AlertDialog, AlertDialogTrigger, AlertDialogContent, AlertDialogTitle, AlertDialogDescription, AlertDialogCancel, AlertDialogAction } from "@radix-ui/react-alert-dialog";
 import React from "react";
-import { AlertDialogFooter, AlertDialogHeader } from "src/components/shadcn/ui/alert-dialog";
-import { Button } from "src/components/shadcn/ui/button";
+import {
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialog,
+  AlertDialogDescription,
+  AlertDialogContent,
+  AlertDialogCancel,
+  AlertDialogTitle,
+  AlertDialogAction,
+} from "src/components/shadcn/ui/alert-dialog";
 
-export default function Alert() {
-    const [open, setOpen] = React.useState(true);
+interface AlertProps {
+  title?: string | null;
+  desc?: string | null;
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  onOk?: () => void;
+  onCancel?: () => void;
+  hasCancel?: boolean;
+}
 
-    return (
-
-
-        <AlertDialog open={open} onOpenChange={setOpen}>
-            <AlertDialogTrigger asChild>
-                <Button variant="outline">Show Dialog</Button>
-            </AlertDialogTrigger>
-            <AlertDialogContent>
-                <AlertDialogHeader>
-                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete your
-                        account and remove your data from our servers.
-                    </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction>Continue</AlertDialogAction>
-                </AlertDialogFooter>
-            </AlertDialogContent>
-        </AlertDialog>
-    )
+export default function Alert({
+  title,
+  desc,
+  open,
+  setOpen,
+  onOk,
+  onCancel,
+  hasCancel,
+}: AlertProps) {
+  return (
+    <AlertDialog open={open} onOpenChange={setOpen}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogDescription>{desc}</AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          {hasCancel && (
+            <AlertDialogCancel onClick={onCancel}>취소</AlertDialogCancel>
+          )}
+          <AlertDialogAction onClick={onOk}>확인</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
 }
