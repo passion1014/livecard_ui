@@ -1,5 +1,7 @@
 import { PencilIcon, FilePlus2 } from "lucide-react";
 import React from "react";
+import CancelButton from "src/components/common/button/CancelButton";
+import SaveButton from "src/components/common/button/SaveButton";
 import { Button } from "src/components/shadcn/ui/button";
 import { Card, CardContent, CardFooter } from "src/components/shadcn/ui/card";
 import {
@@ -18,7 +20,7 @@ export default function CardCreatePage() {
     <div>
       <Card className="w-full">
         <CardContent className="space-y-4">
-          <Carousel opts={{ align: "start" }} className="w-full max-w-sm">
+          <Carousel className="w-full">
             <CarouselContent className="-ml-3">
               {Array.from({ length: 5 }).map((_, index) => (
                 <CarouselItem key={index} className="md:basis-5/6 lg:basis-5/6">
@@ -58,8 +60,8 @@ export default function CardCreatePage() {
             <Input id="name" placeholder="성명 입력" />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="name">연락처</Label>
-            <Input id="name" placeholder="연락처 입력" />
+            <Label htmlFor="contact">연락처</Label>
+            <Input id="contact" placeholder="연락처 입력" />
           </div>
           <div className="space-y-2">
             <Label htmlFor="mobile">모바일</Label>
@@ -75,9 +77,11 @@ export default function CardCreatePage() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-center gap-2">
-          <Button variant="outline">취소</Button>
-          <Button variant="outline">미리보기</Button>
-          <Button>저장</Button>
+          <CancelButton className="flex-1" />
+          <Button variant="outline" className="flex-1">
+            미리보기
+          </Button>
+          <SaveButton className="flex-1" />
         </CardFooter>
       </Card>
     </div>
