@@ -16,7 +16,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!loginUser) {
-      navigate("/login");
+      navigate("/");
     }
   }, [navigate, loginUser]);
 
