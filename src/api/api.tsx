@@ -1,5 +1,10 @@
 import axios from "axios";
-import { getLocalItem, getSessionItem, setLocalItem } from "src/util/storage";
+import {
+  getLocalItem,
+  getSessionItem,
+  removeLocalItem,
+  setLocalItem,
+} from "src/util/storage";
 import { tokenApis } from "./tokenApi";
 import Token from "src/constants/Token";
 import { getCookie } from "src/util/cookie";
@@ -73,24 +78,36 @@ api.interceptors.response.use(
     return response;
   },
   async (error) => {
-    if (error.response.status === 401) {
-      //TODO: token expired 구분하기 위해서 서버에서 메시지 처리하기
-      //unauthorised.
-      const response = await api.post(
-        "/api/token",
-        getCookie(Token.REFRESH_TOKEN)
-      );
-      const accessToken = response.data;
-      if (accessToken) {
-        setLocalItem(Token.ACCESS_TOKEN, accessToken);
-      } else {
-        //TODO: 에러 보여주기
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true; // 무한루프 방지
+
+      try {
+        //TODO: token expired 구분하기 위해서 서버에서 메시지 처리하기
+        //unauthorised.
+        const response = await api.post(
+          "/api/token",
+          getCookie(Token.REFRESH_TOKEN)
+        );
+
+        const accessToken = response.data;
+        if (accessToken) {
+          setLocalItem(Token.ACCESS_TOKEN, accessToken);
+        } else {
+          //TODO: 에러 보여주기
+          return Promise.reject(error);
+        }
+
+        return api(error.config);
+      } catch (refreshError) {
+        console.error("Token refresh failed:", refreshError);
+        removeLocalItem(Token.ACCESS_TOKEN);
+        window.location.href = "/login";
+        return Promise.reject(refreshError);
       }
-
-      return axios(error.config);
+    } else {
+      //TODO: Alert 띄우기
     }
-
-    return Promise.reject(error);
   }
 );
 

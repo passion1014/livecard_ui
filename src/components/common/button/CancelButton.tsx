@@ -6,9 +6,12 @@ interface CancelButtonProps {
   className?: string;
 }
 
-export default function CancelButton({ className }: CancelButtonProps) {
+export default function CancelButton({
+  className,
+  ...restProps
+}: CancelButtonProps) {
   return (
-    <Button variant="secondary" className={className}>
+    <Button variant="secondary" className={className} {...restProps}>
       취소
     </Button>
   );

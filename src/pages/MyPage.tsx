@@ -4,15 +4,14 @@ import {
   ImagePlay,
   MailOpen,
   MicVocal,
-  MoveLeft,
   Send,
   WalletCards,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+
 import IconLink from "src/components/common/link/IconLink";
 import { Avatar, AvatarImage } from "src/components/shadcn/ui/avatar";
-import sample from "src/assets/images/avartar_sample.jpg";
+
 import useLoginUserStore from "src/stores/useLoginUserStore";
 import api from "src/api/api";
 
