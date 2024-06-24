@@ -9,6 +9,12 @@ import LoginCallbackPage from "./pages/LoginCallbackPage";
 import PageNotFoundPage from "./pages/PageNotFoundPage";
 import CardCreatePage from "./pages/CardCreatePage";
 import CardPreviewPage from "./pages/CardPreviewPage";
+
+import TypeSelectPage from "./pages/TypeSelectPage";
+import MediaCreatePage from "./pages/MediaCreatePage";
+import CardListPage from "./pages/CardListPage";
+import MyPageContentsPage from "./pages/MyPageContentsPage";
+
 import Alert from "./components/common/dialog/Alert";
 import { useAlertStore } from "./stores/useAlertStore";
 import TestPage from "./pages/TestPage";
@@ -50,8 +56,12 @@ const App = () => {
         {/* 인증 필요 페이지 */}
         <Route element={<AuthoRoute />}>
           <Route path="/mypage" element={<MyPage />} />
+          <Route path="/mypageContents" element={<MyPageContentsPage />} />
           <Route path="/card/create" element={<CardCreatePage />} />
           <Route path="/card/preview" element={<CardPreviewPage />} />
+          <Route path="/card/typeSelect" element={<TypeSelectPage />} />
+          <Route path="/card/mediaCreate" element={<MediaCreatePage />} />
+          <Route path="/card/cardList" element={<CardListPage />} />
         </Route>
       </Routes>
     </div>
