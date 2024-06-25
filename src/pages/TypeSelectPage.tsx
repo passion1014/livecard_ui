@@ -9,16 +9,17 @@ export default function TypeSelectPage() {
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {
       const { current } = scrollRef;
+      const scrollAmount = current.offsetWidth;
       if (direction === 'left') {
-        current.scrollBy({ left: -200, behavior: 'smooth' });
+        current.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
       } else {
-        current.scrollBy({ left: 200, behavior: 'smooth' });
+        current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
       }
     }
   };
   
   return (
-    <div className="mx-auto p-4 space-y-4">
+    <div className="mx-auto p-4 space-y-4 max-w-7xl">
       <div className="flex justify-between items-center">
         <div className="flex space-x-2">
           <Button variant="ghost" size="sm">
@@ -33,7 +34,7 @@ export default function TypeSelectPage() {
         </Button>
       </div>
       
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {["보험설계사", "자동차딜러", "회계사", "변호사"].map((item) => (
           <Button key={item} variant="outline" className="text-xs py-1">
             {item}
@@ -41,7 +42,7 @@ export default function TypeSelectPage() {
         ))}
       </div>
       
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
         {["의사", "교사", "연구원", "기타"].map((item) => (
           <Button key={item} variant="outline" className="text-xs py-1">
             {item}
@@ -55,10 +56,12 @@ export default function TypeSelectPage() {
           <button onClick={() => scroll('left')} className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white bg-opacity-50 rounded-full p-2">
             <ChevronLeftIcon className="h-6 w-6" />
           </button>
-          <div ref={scrollRef} className="flex overflow-x-auto space-x-4 scrollbar-hide">
-            {[1, 2, 3].map((item) => (
-              <div key={item} className="flex-shrink-0 w-64 h-40 bg-white rounded-md shadow-md"></div>
-            ))}
+          <div ref={scrollRef} className="overflow-x-auto scrollbar-hide">
+            <div className="flex">
+              {[1, 2, 3].map((item) => (
+                <div key={item} className="flex-shrink-0 w-full h-40 sm:h-48 md:h-56 bg-white rounded-md shadow-md"></div>
+              ))}
+            </div>
           </div>
           <button onClick={() => scroll('right')} className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white bg-opacity-50 rounded-full p-2">
             <ChevronRightIcon className="h-6 w-6" />
@@ -66,13 +69,10 @@ export default function TypeSelectPage() {
         </div>
       </div>
       
-      <div className="flex justify-between">
-        <Button variant="outline" className="w-1/2">취소</Button>
-        <Button variant="outline" className="w-1/2">저장</Button>
+      <div className="flex flex-col sm:flex-row justify-between space-y-2 sm:space-y-0 sm:space-x-2">
+        <Button variant="outline" className="w-full sm:w-1/2">취소</Button>
+        <Button variant="outline" className="w-full sm:w-1/2">저장</Button>
       </div>
     </div>
   );
 }
-
-
-
