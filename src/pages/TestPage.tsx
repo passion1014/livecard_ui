@@ -1,5 +1,10 @@
 import React from "react";
+import CancelButton from "src/components/common/button/CancelButton";
+import GenericButton from "src/components/common/button/GenericButton";
+import SaveButton from "src/components/common/button/SaveButton";
+import UnderlineInput from "src/components/common/input/UnderlineInput";
 import { Button } from "src/components/shadcn/ui/button";
+import { Label } from "src/components/shadcn/ui/label";
 import { useAlertStore } from "src/stores/useAlertStore";
 import { useConfirmStore } from "src/stores/useConfirmStore";
 
@@ -11,6 +16,7 @@ export default function Test() {
     <div>
       <ul>
         <li>
+          <div># Dialog</div>
           <Button
             variant="outline"
             onClick={() => {
@@ -24,7 +30,6 @@ export default function Test() {
           >
             alert
           </Button>
-
           <Button
             variant="outline"
             onClick={async () => {
@@ -38,7 +43,6 @@ export default function Test() {
           >
             alertSync(동기)
           </Button>
-
           <Button
             variant="outline"
             onClick={() => {
@@ -49,7 +53,6 @@ export default function Test() {
           >
             confirm
           </Button>
-
           <Button
             variant="outline"
             onClick={async () => {
@@ -63,6 +66,20 @@ export default function Test() {
             confirmSync(동기)
           </Button>
         </li>
+        <li>
+          # 언더바 input
+          <form className="space-y-4">
+            <div className="space-y-2 flex items-center flex-row">
+              <Label className="inline-block w-1/4">이름</Label>
+              <UnderlineInput value="김정민" readOnly />
+            </div>
+          </form>
+        </li>
+        <li># 버튼</li>
+        <div>
+          <SaveButton /> <CancelButton />{" "}
+          <GenericButton>일반버튼</GenericButton>
+        </div>
       </ul>
     </div>
   );

@@ -7,6 +7,7 @@ import {
   PlayIcon,
 } from "lucide-react";
 import React from "react";
+import UnderlineInput from "src/components/common/input/UnderlineInput";
 import { Button } from "src/components/shadcn/ui/button";
 
 export default function CardPreviewPage() {
@@ -39,49 +40,25 @@ export default function CardPreviewPage() {
       <form className="space-y-4">
         <div className="space-y-2 flex items-center flex-row">
           <Label className="inline-block w-1/4">이름</Label>
-          <input
-            id="fax"
-            type="text"
-            className="border-b border-gray-400 focus:border-blue-500 outline-none px-3 py-2 w-full"
-            value="김정민"
-            readOnly
-          />
+          <UnderlineInput value="김정민" readOnly />
         </div>
         <div className="space-y-2 flex items-center">
           <Label htmlFor="phone" className="inline-block w-1/4">
             전화
           </Label>
-          <input
-            id="fax"
-            type="text"
-            className="border-b border-gray-400 focus:border-blue-500 outline-none px-3 py-2 w-full"
-            value="02-1234-1234"
-            readOnly
-          />
+          <UnderlineInput value="02-1234-1234" readOnly />
         </div>
         <div className="space-y-2 flex items-center">
           <Label htmlFor="fax" className="inline-block w-1/4">
             팩스
           </Label>
-          <input
-            id="fax"
-            type="text"
-            className="border-b border-gray-400 focus:border-blue-500 outline-none px-3 py-2 w-full"
-            value="02-3123-1234"
-            readOnly
-          />
+          <UnderlineInput value="02-1234-1234" readOnly />
         </div>
         <div className="space-y-2 flex items-center">
           <Label htmlFor="email" className="inline-block w-1/4">
             이메일
           </Label>
-          <input
-            id="fax"
-            type="text"
-            className="border-b border-gray-400 focus:border-blue-500 outline-none px-3 py-2 w-full"
-            value="jmkim7707@gmail.com"
-            readOnly
-          />
+          <UnderlineInput value="jmkim7707@gmail.com" readOnly />
         </div>
         <Button type="submit" className="w-full">
           전송하기

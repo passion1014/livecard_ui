@@ -16,6 +16,8 @@ import { Label } from "src/components/shadcn/ui/label";
 import { Textarea } from "src/components/shadcn/ui/textarea";
 
 export default function CardCreatePage() {
+  const onSaveButtonClick = (e: any) => {};
+
   return (
     <div>
       <Card className="w-full">
@@ -81,7 +83,7 @@ export default function CardCreatePage() {
           <Button variant="outline" className="flex-1">
             미리보기
           </Button>
-          <SaveButton className="flex-1" />
+          <SaveButton className="flex-1" onClick={onSaveButtonClick} />
         </CardFooter>
       </Card>
     </div>

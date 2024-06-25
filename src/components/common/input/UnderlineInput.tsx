@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
 
-interface UnderbarInputProps {
+interface UnderbarInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   value?: string | number;
   children?: ReactNode;
