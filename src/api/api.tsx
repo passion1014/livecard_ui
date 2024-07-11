@@ -8,6 +8,8 @@ import {
 import { tokenApis } from "./tokenApi";
 import Token from "src/constants/Token";
 import { getCookie } from "src/util/cookie";
+import User from "src/constants/User";
+import useLoginUserStore from "src/stores/useLoginUserStore";
 
 const api = axios.create({
   baseURL: "http://localhost:8080/", //TODO:로컬에서만 되게끔
@@ -83,13 +85,15 @@ api.interceptors.response.use(
       originalRequest._retry = true; // 무한루프 방지
 
       try {
+        const refreshToken = getCookie(Token.REFRESH_TOKEN);
+        if (refreshToken == null) {
+          console.error("No Refresh Token.");
+          clearLogin();
+        }
+
         //TODO: token expired 구분하기 위해서 서버에서 메시지 처리하기
         //unauthorised.
-        const response = await api.post(
-          "/api/token",
-          getCookie(Token.REFRESH_TOKEN)
-        );
-
+        const response = await api.post("/api/token", refreshToken);
         const accessToken = response.data;
         if (accessToken) {
           setLocalItem(Token.ACCESS_TOKEN, accessToken);
@@ -101,9 +105,8 @@ api.interceptors.response.use(
         return api(error.config);
       } catch (refreshError) {
         console.error("Token refresh failed:", refreshError);
-        removeLocalItem(Token.ACCESS_TOKEN);
-        window.location.href = "/login";
-        return Promise.reject(refreshError);
+        clearLogin();
+        //return Promise.reject(refreshError);
       }
     } else {
       //TODO: Alert 띄우기
@@ -112,3 +115,13 @@ api.interceptors.response.use(
 );
 
 export default api;
+
+const clearLogin = () => {
+  removeLocalItem(Token.ACCESS_TOKEN);
+  removeLocalItem(User.LOGIN_USER);
+
+  const { clearLoginUser } = useLoginUserStore.getState();
+  clearLoginUser();
+
+  window.location.href = "/login";
+};

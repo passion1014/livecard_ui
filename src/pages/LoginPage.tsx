@@ -15,7 +15,7 @@ const LoginPage = () => {
   const { loginUser } = useLoginUserStore();
   const navigate = useNavigate();
   useEffect(() => {
-    if (!loginUser) {
+    if (loginUser) {
       navigate("/");
     }
   }, [navigate, loginUser]);
