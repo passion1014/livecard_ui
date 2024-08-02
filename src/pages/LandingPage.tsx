@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "src/api/api";
 import { Button } from "src/components/shadcn/ui/button";
 import Token from "src/constants/Token";
 import User from "src/constants/User";
@@ -45,6 +46,20 @@ const LandingPage = () => {
           }}
         >
           {loginUser ? "로그아웃" : "로그인"}
+        </Button>
+        <Button
+          variant="destructive"
+          onClick={() => {
+            api.post("/api/auth/unlink").then((response) => {
+              console.log(response);
+              removeLocalItem(Token.ACCESS_TOKEN);
+              removeLocalItem(User.LOGIN_USER);
+              clearLoginUser();
+              navigate("/login");
+            });
+          }}
+        >
+          탈퇴
         </Button>
         <div>{loginUser ? <img src={loginUser?.profileImg} alt="" /> : ""}</div>
       </div>
