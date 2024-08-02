@@ -10,6 +10,7 @@ import Token from "src/constants/Token";
 import { getCookie } from "src/util/cookie";
 import User from "src/constants/User";
 import useLoginUserStore from "src/stores/useLoginUserStore";
+import { useAlertStore } from "src/stores/useAlertStore";
 
 const api = axios.create({
   baseURL: "http://localhost:8080/", //TODO:로컬에서만 되게끔
@@ -93,7 +94,7 @@ api.interceptors.response.use(
 
         //TODO: token expired 구분하기 위해서 서버에서 메시지 처리하기
         //unauthorised.
-        const response = await api.post("/api/token", refreshToken);
+        const response = await api.post("/api/auth/token", refreshToken);
         const accessToken = response.data;
         if (accessToken) {
           setLocalItem(Token.ACCESS_TOKEN, accessToken);
@@ -109,6 +110,9 @@ api.interceptors.response.use(
         //return Promise.reject(refreshError);
       }
     } else {
+      const { showAlert } = useAlertStore.getState();
+      showAlert("오류", error.message);
+
       //TODO: Alert 띄우기
     }
   }
