@@ -7,7 +7,7 @@ import {
 } from "src/util/storage";
 import { tokenApis } from "./tokenApi";
 import Token from "src/constants/Token";
-import { getCookie } from "src/util/cookie";
+import { getCookie, removeCookie } from "src/util/cookie";
 import User from "src/constants/User";
 import useLoginUserStore from "src/stores/useLoginUserStore";
 import { useAlertStore } from "src/stores/useAlertStore";
@@ -126,6 +126,7 @@ const clearLogin = () => {
 
   const { clearLoginUser } = useLoginUserStore.getState();
   clearLoginUser();
+  removeCookie(Token.REFRESH_TOKEN);
 
   window.location.href = "/login";
 };
